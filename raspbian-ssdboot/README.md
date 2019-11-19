@@ -10,7 +10,7 @@ Assumptions:
 Equipment needed for each RPI:
  - SD Card
  - SSD
- - Your favorite USB3-SATA (or USB3-NVME) adapter. Tip: Try it out under Raspbian beforehand, and tweak the usb-storage.quirks kernel parameter and/or modprobe blacklist file to suit if you run into issues (poor performance, errors in dmesg) with UAS.
+ - Your favorite USB3-SATA (or USB3-NVME) adapter. Tip: Try it out under Raspbian beforehand, and tweak the usb-storage.quirks kernel parameter and/or modprobe blacklist config in `bind-ssd-to-sdcard.sd` to suit if you run into issues (poor performance, errors in dmesg) with UAS.
 
 
 Before running these scripts:
