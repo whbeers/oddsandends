@@ -26,7 +26,7 @@ sudo --preserve-env=USERNAME sh -c 'echo "usb-storage quirks=152d:0578:u" > /med
 
 
 echo "Enabling boot from SSD..."
-PARTUUID=$(sudo lsblk -lo name,label,partuuid|grep ssdroot | awk '{print $3}')
+PARTUUID=$(sudo lsblk -lo label,partuuid|grep ssdroot | awk '{print $2}')
 echo "console=serial0,115200 console=tty1 root=PARTUUID=$PARTUUID rootfstype=ext4 elevator=deadline usb-storage.quirks=152d:0578:u fsck.repair=yes rootwait" > /media/$USERNAME/boot/cmdline.txt
 sudo sed -i 's/PARTUUID=6c586e13-01/LABEL=boot/' /media/$USERNAME/rootfs/etc/fstab
 sudo sed -i 's/PARTUUID=6c586e13-02/LABEL=ssdroot/' /media/$USERNAME/rootfs/etc/fstab

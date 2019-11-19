@@ -1,6 +1,6 @@
-DISK=$(lsblk -lo name,label,partuuid|grep ssdroot | awk '{print $1}' |sed -e 's/2$//')
-ROOTFS=$(lsblk -lo name,label,partuuid|grep ssdroot | awk '{print "/dev/"$1}')
-sudo umount $ROOTFS 2>/dev/null
+DISK=$(lsblk -lo path,label |grep ssdroot | awk '{print $1}' |sed -e 's/2$//')
+SSDROOTPART=$(lsblk -lo path,label |grep ssdroot | awk '{print $1}')
+sudo umount $SSDROOTPART 2>/dev/null
 
 if [[ -z $DISK ]]; then
   echo "disk not detected. exiting"
@@ -8,7 +8,7 @@ if [[ -z $DISK ]]; then
 fi
 
 echo "PARTUUIDs before update:"
-lsblk -lo name,label,partuuid | grep $DISK
+lsblk -lo path,label,partuuid | grep $DISK
 
 # The following is adapted from Milliways script at 
 # https://www.raspberrypi.org/forums/viewtopic.php?f=29&t=253562#p1547598
@@ -20,7 +20,7 @@ fi
 
 echo "Writing new PARTUUID:$PTUUID, to device:$DISK..."
 sync && sleep 2
-sudo fdisk "/dev/"$DISK <<EOF > /dev/null
+sudo fdisk $DISK <<EOF > /dev/null
 p
 x
 i
@@ -32,4 +32,4 @@ EOF
 sync && sleep 2
 
 echo "PARTUUIDs after update:"
-lsblk -lo name,label,partuuid | grep $DISK
+lsblk -lo path,label,partuuid | grep $DISK

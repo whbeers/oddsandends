@@ -1,8 +1,8 @@
-DISK=$(lsblk -lo name,label,partuuid|grep rootfs | awk '{print $1}' |sed -e 's/2$//')
-ROOTFS=$(lsblk -lo name,label,partuuid|grep rootfs | awk '{print "/dev/"$1}')
-BOOTFS=$(lsblk -lo name,label,partuuid|grep boot | awk '{print "/dev/"$1}')
-sudo umount $ROOTFS 2>/dev/null
-sudo umount $BOOTFS 2>/dev/null
+DISK=$(lsblk -lo path,label |grep rootfs | awk '{print $1}' |sed -e 's/2$//')
+ROOTPART=$(lsblk -lo path,label |grep rootfs | awk '{print $1}')
+BOOTPART=$(lsblk -lo path,label |grep boot | awk '{print "$1}')
+sudo umount $ROOTPART 2>/dev/null
+sudo umount $BOOTPART 2>/dev/null
 
 if [[ -z $DISK ]]; then
   echo "disk not detected. exiting"
@@ -10,7 +10,7 @@ if [[ -z $DISK ]]; then
 fi
 
 echo "PARTUUIDs before update:"
-lsblk -lo name,label,partuuid | grep $DISK
+lsblk -lo path,label,partuuid | grep $DISK
 
 
 # The following is adapted from Milliways script at 
@@ -24,7 +24,7 @@ fi
 
 echo "Writing new PARTUUID:$PTUUID to device:$DISK..."
 sync && sleep 2
-sudo fdisk "/dev/"$DISK <<EOF > /dev/null
+sudo fdisk $DISK <<EOF > /dev/null
 p
 x
 i
@@ -36,5 +36,5 @@ EOF
 sync && sleep 2
 
 echo "PARTUUIDs after update:"
-lsblk -lo name,label,partuuid | grep $DISK
+lsblk -lo path,label,partuuid | grep $DISK
 
