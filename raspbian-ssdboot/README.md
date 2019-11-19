@@ -2,6 +2,8 @@ A few scripts I threw together to automate portions of setting up a pile of Rasp
 
 I'm guessing none of this will be necessary anymore once the RPI4 firmware is updated to support boot from USB devices.
 
+Note that a fair amount of this is cobbled together from various fixes and snippets found on stackoverflow/elsewhere.
+
 Assumptions:
  - Scripts are run from a workstation running a modern Ubuntu with automount at `/media/$USERNAME/[label]`.
  - Raspbian is being used on the Raspberry Pis.

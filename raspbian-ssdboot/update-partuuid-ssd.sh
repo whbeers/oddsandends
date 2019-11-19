@@ -10,7 +10,7 @@ fi
 echo "PARTUUIDs before update:"
 lsblk -lo name,label,partuuid | grep $DISK
 
-
+# The following is lifted from a comment on stackoverflow that I can't find anymore.
 PTUUID=$(uuid | cut -c-8)
 PTUUID="$(tr [A-Z] [a-z] <<< "${PTUUID}")"
 if [[ ! "${PTUUID}" =~ ^[[:xdigit:]]{8}$ ]]; then
