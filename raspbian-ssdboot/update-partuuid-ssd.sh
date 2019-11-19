@@ -10,7 +10,8 @@ fi
 echo "PARTUUIDs before update:"
 lsblk -lo name,label,partuuid | grep $DISK
 
-# The following is lifted from a comment on stackoverflow that I can't find anymore.
+# The following is adapted from Milliways script at 
+# https://www.raspberrypi.org/forums/viewtopic.php?f=29&t=253562#p1547598
 PTUUID=$(uuid | cut -c-8)
 PTUUID="$(tr [A-Z] [a-z] <<< "${PTUUID}")"
 if [[ ! "${PTUUID}" =~ ^[[:xdigit:]]{8}$ ]]; then

@@ -17,7 +17,10 @@ echo "Enabling ssh..."
 touch /media/$USERNAME/boot/ssh
 
 
-# the following ensure that my USB3 SATA adapter uses usb-storage ainstead of UAS. Update this (and cmdline below) with your vendorid:productid pair if you run into performance issues.
+# the following ensure that my USB3 SATA adapter uses usb-storage ainstead of
+# UAS. Update this (and cmdline below) with your vendorid:productid pair if
+# you run into performance issues. Adapted from YtvwlD's solution at
+# https://unix.stackexchange.com/questions/239782/connection-problem-with-usb3-external-storage-on-linux-uas-driver-problem
 sudo --preserve-env=USERNAME sh -c 'echo "usb-storage quirks=152d:0578:u" > /media/$USERNAME/rootfs/etc/modprobe.d/blacklist_uas.conf'
 sudo --preserve-env=USERNAME sh -c 'echo "usb-storage quirks=152d:0578:u" > /media/$USERNAME/ssdroot/etc/modprobe.d/blacklist_uas.conf'
 
