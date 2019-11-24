@@ -1,6 +1,6 @@
 DISK=$(lsblk -lo path,label |grep rootfs | awk '{print $1}' |sed -e 's/2$//')
 ROOTPART=$(lsblk -lo path,label |grep rootfs | awk '{print $1}')
-BOOTPART=$(lsblk -lo path,label |grep boot | awk '{print "$1}')
+BOOTPART=$(lsblk -lo path,label |grep boot | awk '{print $1}')
 sudo umount $ROOTPART 2>/dev/null
 sudo umount $BOOTPART 2>/dev/null
 
